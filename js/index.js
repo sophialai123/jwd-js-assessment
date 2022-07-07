@@ -83,7 +83,7 @@ window.addEventListener('DOMContentLoaded', () => {
     stopCountDownTime()
   };
 
-  let startTime = 1; // mintues
+  let startTime = 01; // mintues
   let time = startTime * 60;
   const timeCountingHtml = document.getElementById('time');
 
@@ -92,7 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let intervalID = setInterval(() => {
       let mintues = Math.floor(time / 60);
       let seconds = time % 60;
-      timeCountingHtml.innerHTML = `${mintues}:${seconds}`;
+      timeCountingHtml.innerHTML = `0${mintues}:${seconds}`;
       //Clear the time out
       if (time < 1) {
         clearTimeout(intervalID);
