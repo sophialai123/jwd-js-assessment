@@ -80,7 +80,6 @@ window.addEventListener('DOMContentLoaded', () => {
     countDownTime();
     submitBtn();
     resetBtn();
-    stopCountDownTime()
   };
 
   let startTime = 01; // mintues
