@@ -43,8 +43,23 @@ window.addEventListener('DOMContentLoaded', () => {
       q: 'What is the capital of Australia',
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
-    },
+    }
   ];
+
+  //push two more question in the quizarray:
+  let question4 = {
+    q: "Which of the following is true about variable naming conventions in JavaScript?",
+    o: ['You should not use any of the JavaScript reserved keyword as variable name.', 'JavaScript variable names should not start with a numeral (0-9).', 'Both of the above.', 'None of the above.'],
+    a: 2
+  }
+  let question5 = {
+    q: "Which of the following function of Array object joins all elements of an array into a string?",
+    o: ["concat()", "join()", "pop()", "map()"],
+    a: 1
+  }
+  quizArray.push(question4);
+  quizArray.push(question5);
+
 
   // function to Display the quiz questions and answers from the object
   const displayQuiz = () => {
@@ -60,8 +75,54 @@ window.addEventListener('DOMContentLoaded', () => {
                     </ul>
                     <div>&nbsp;</div>`;
       quizWrap.innerHTML = quizDisplay;
+
     });
+    countDownTime();
+    submitBtn();
+    resetBtn();
+    stopCountDownTime()
   };
+
+  let startTime = 1; // mintues
+  let time = startTime * 60;
+  const timeCountingHtml = document.getElementById('time');
+
+  //countDownTime Funtion
+  const countDownTime = () => {
+    let intervalID = setInterval(() => {
+      let mintues = Math.floor(time / 60);
+      let seconds = time % 60;
+      timeCountingHtml.innerHTML = `${mintues}:${seconds}`;
+      //Clear the time out
+      if (time < 1) {
+        clearTimeout(intervalID);
+        timeCountingHtml.innerHTML = "Time is up!!!";
+        timeCountingHtml.style.color = "red";
+        timeCountingHtml.style.fontSize = "20px";
+        //call the score function
+        calculateScore();
+      }
+      time--;
+    }, 1000);
+
+  }
+
+
+  //sumbit button
+  const submitBtn = () => {
+    document.getElementById('btnSubmit').addEventListener("click", (event) => {
+      event.preventDefault();
+      calculateScore();
+    })
+
+  }
+
+  //reset button to reload the page
+  const resetBtn = () => {
+    document.getElementById('btnReset').addEventListener('click', () => {
+      window.location.reload();
+    })
+  }
 
   // Calculate the score
   const calculateScore = () => {
@@ -76,15 +137,26 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
+          liElement.style.backgroundColor = "green";
         }
-
         if (radioElement.checked) {
           // code for task 1 goes here
+          if (quizItem.a == i) {
+            score++;
+          }
         }
       }
     });
+
+    //display the score
+    let scoreCount = document.getElementById('score');
+    scoreCount.innerHTML = `Total Score: ${quizArray.length} / ${score}`
   };
 
   // call the displayQuiz function
   displayQuiz();
 });
+
+
+
+
